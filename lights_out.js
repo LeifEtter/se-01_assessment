@@ -6,18 +6,32 @@ const readline = require('readline').createInterface({
 
 //Initial game grid
 game_grid = [
-    ['X', 'X', 'X', 'X', 'X'],
-    ['X', 'X', 'X', 'X', 'X'],
-    ['X', 'X', 'X', 'X', 'X'],
-    ['X', 'X', 'X', 'X', 'X'],
-    ['X', 'X', 'X', 'X', 'X'],
+    ['R', 'R', 'R', 'R', 'R'],
+    ['R', 'R', 'R', 'R', 'R'],
+    ['R', 'R', 'R', 'R', 'R'],
+    ['R', 'R', 'R', 'R', 'R'],
+    ['R', 'R', 'R', 'R', 'R'],
 ]
 
 //Function that toggles at specific location
 function toggleAt(y, x, grid) {
-    console.log(`This is y: ${y}, this is x: ${x}`)
-    grid[y][x] == 'X' ? grid[y][x] = 'O' : grid[y][x] = 'X';
-    return grid
+    //Toggle according to color
+    switch(grid[y][x]) {
+        case "R":
+            grid[y][x] = "G"
+            return grid
+        case "G":
+            grid[y][x] = "B"
+            return grid
+        case "B":
+            grid[y][x] = "O"
+            return grid
+        case "O":
+            grid[y][x] = "R"
+            return grid
+        default:
+            return grid
+    }
 }
 
 //Function that toggles selected location and nbeighbours
@@ -29,10 +43,10 @@ function toggle(position, grid) {
     grid = toggleAt(y, x, grid)
 
     //Toggle Neighbours if in bounds
-    if((y + 1) <= 4) {
+    if((y + 1) <= grid.length-1) {
         grid = toggleAt(y+1, x, grid)
     }
-    if((x + 1) <= 4) {
+    if((x + 1) <= grid.length-1) {
         grid = toggleAt(y, x+1, grid)
     }
     if((y - 1) >= 0) {
@@ -48,7 +62,7 @@ function checkWin(grid) {
     //Iterate through all fields, return false if one field isn't off
     for(row of grid) {
         for(field of row) {
-            if(field == "X") {
+            if(field != "O") {
                 return false
             }
         }
@@ -65,11 +79,10 @@ function displayGrid(grid) {
         console.log(`${x} | ${row[0]}  ${row[1]}  ${row[2]}  ${row[3]}  ${row[4]}`)
         x++;
     }
-    console.log("y")
 }
 
 function playGame(grid) {
-    console.log("This isn the new Grid:")
+    console.log("This is the new Grid:")
 
     //Check For Win
     if (checkWin(grid)) {
