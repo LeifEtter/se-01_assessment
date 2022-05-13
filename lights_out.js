@@ -6,9 +6,11 @@ const readline = require('readline').createInterface({
 
 //Initial game grid
 game_grid = [
-    ['X', 'X', 'X'],
-    ['X', 'X', 'X'],
-    ['X', 'X', 'X'],
+    ['X', 'X', 'X', 'X', 'X'],
+    ['X', 'X', 'X', 'X', 'X'],
+    ['X', 'X', 'X', 'X', 'X'],
+    ['X', 'X', 'X', 'X', 'X'],
+    ['X', 'X', 'X', 'X', 'X'],
 ]
 
 //Function that toggles at specific location
@@ -27,10 +29,10 @@ function toggle(position, grid) {
     grid = toggleAt(y, x, grid)
 
     //Toggle Neighbours if in bounds
-    if((y + 1) <= 2) {
+    if((y + 1) <= 4) {
         grid = toggleAt(y+1, x, grid)
     }
-    if((x + 1) <= 2) {
+    if((x + 1) <= 4) {
         grid = toggleAt(y, x+1, grid)
     }
     if((y - 1) >= 0) {
@@ -56,11 +58,11 @@ function checkWin(grid) {
 
 function displayGrid(grid) {
     //Display Grid with numbers for orientation
-    console.log("    0  1  2  x")
-    console.log("    -------")
+    console.log("    0  1  2  3  4 x")
+    console.log("    -------------------")
     x = 0
     for(row of grid) {
-        console.log(`${x} | ${row[0]}  ${row[1]}  ${row[2]}`)
+        console.log(`${x} | ${row[0]}  ${row[1]}  ${row[2]}  ${row[3]}  ${row[4]}`)
         x++;
     }
     console.log("y")
